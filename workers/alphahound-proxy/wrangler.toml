@@ -1,0 +1,7 @@
+name = "alphahound-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+routes = [
+  { pattern = "alphahound.axiworx.com/*", zone_name = "axiworx.com" }
+]

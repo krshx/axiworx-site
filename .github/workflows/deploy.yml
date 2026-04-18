@@ -1,3 +1,0 @@
-# Cloudflare Pages deploys automatically via Git integration.
-# No CI workflow needed — CF Pages watches the main branch directly.
-# This file is intentionally minimal to avoid duplicate deployments.
