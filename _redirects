@@ -1,5 +1,7 @@
-# Redirect product sub-paths to their dedicated pages
-/alphahound          /alphahound/             301
+# AlphaHound lives at its own subdomain — redirect path-based URLs
+/alphahound          https://alphahound.axiworx.com    301
+/alphahound/         https://alphahound.axiworx.com    301
+/alphahound/*        https://alphahound.axiworx.com    301
 
 # Catch-all: unknown paths → home
-/*                   /                        301
+/*                   /                                 301
