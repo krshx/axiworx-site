@@ -8,8 +8,10 @@
   <meta property="og:title" content="AlphaHound — Institutional Money Intelligence">
   <meta property="og:description" content="Track where institutional money moves. Free public data, fully local, no cloud.">
   <meta property="og:url" content="https://axiworx.com/alphahound">
+  <meta property="og:image" content="https://axiworx.com/alphahound/og-image.jpeg">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://axiworx.com/alphahound">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -60,9 +62,9 @@
     .hero-row { display: flex; align-items: flex-start; gap: 40px; }
     .hero-icon {
       width: 72px; height: 72px; border-radius: 18px; flex-shrink: 0;
-      background: var(--hound); display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 22px; color: #fff; letter-spacing: -1px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
     }
+    .hero-icon img { width: 100%; height: 100%; object-fit: cover; }
     h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; }
     .hero-sub { font-size: 17px; color: var(--muted); margin-top: 14px; line-height: 1.6; max-width: 520px; }
     .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
@@ -204,7 +206,7 @@
   <section class="hero">
     <div class="container">
       <div class="hero-row">
-        <div class="hero-icon">AH</div>
+        <div class="hero-icon"><img src="/alphahound/icon.jpeg" alt="AlphaHound"></div>
         <div>
           <h1>Institutional Money<br>Intelligence</h1>
           <p class="hero-sub">

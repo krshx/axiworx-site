@@ -1,28 +1,3 @@
-name: Deploy to Cloudflare Pages
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: axiworx-site
-          directory: .
-          # Pages Functions in /functions are automatically deployed
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+# Cloudflare Pages deploys automatically via Git integration.
+# No CI workflow needed — CF Pages watches the main branch directly.
+# This file is intentionally minimal to avoid duplicate deployments.
