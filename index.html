@@ -159,8 +159,9 @@
       width: 44px; height: 44px; border-radius: 11px;
       background: var(--card-color, var(--hound));
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 18px;
+      flex-shrink: 0; font-size: 18px; overflow: hidden;
     }
+    .card-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .card-name { font-size: 17px; font-weight: 700; color: var(--text); }
     .card-tagline { font-size: 12px; color: var(--muted2); margin-top: 2px; }
     .card-desc { font-size: 14px; color: var(--muted); line-height: 1.55; flex: 1; }
@@ -285,7 +286,7 @@
         <!-- AlphaHound -->
         <div class="product-card" style="--card-color: #6366f1" data-live="true">
           <div class="card-header">
-            <div class="card-icon">◈</div>
+            <div class="card-icon"><img src="/alphahound/icon.jpeg" alt="AlphaHound"></div>
             <div>
               <div class="card-name">AlphaHound</div>
               <div class="card-tagline">Institutional Money Intelligence</div>
