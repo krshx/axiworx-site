@@ -2,6 +2,3 @@
 /alphahound          https://alphahound.axiworx.com    301
 /alphahound/         https://alphahound.axiworx.com    301
 /alphahound/*        https://alphahound.axiworx.com    301
-
-# Catch-all: unknown paths → home
-/*                   /                                 301
