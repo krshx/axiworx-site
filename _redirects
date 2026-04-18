@@ -1,0 +1,6 @@
+# Redirect product sub-paths to their dedicated pages
+/alphahound          /alphahound/index.html    200
+/alphahound/         /alphahound/index.html    200
+
+# Catch-all: any unknown path → home
+/*                   /index.html               404
