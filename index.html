@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axiworx — Intelligence tools for focused people</title>
-  <meta name="description" content="Axiworx builds focused intelligence tools. AlphaHound tracks institutional money flows. Guardr protects your browsing. YogaBud guides your practice.">
+  <title>Axiworx — Precise tools for specific problems</title>
+  <meta name="description" content="Axiworx builds focused software that removes friction — market intelligence, browser privacy, wellness, and city mobility. No subscriptions. No bloat.">
   <meta property="og:title" content="Axiworx">
-  <meta property="og:description" content="Intelligence tools for focused people.">
+  <meta property="og:description" content="Precise tools for specific problems.">
   <meta property="og:url" content="https://axiworx.com">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://axiworx.com">
@@ -23,11 +23,13 @@
       --muted:     #a1a1aa;
       --muted2:    #71717a;
       --muted3:    #52525b;
-      --hound:     #6366f1;
-      --hound-lt:  #818cf8;
-      --guardr:    #10b981;
-      --yogabud:   #f59e0b;
-      --zone:      #3b82f6;
+      --accent:    #6366f1;
+      --accent-lt: #818cf8;
+      --c-hound:   #6366f1;
+      --c-guardr:  #10b981;
+      --c-yoga:    #f59e0b;
+      --c-zone:    #3b82f6;
+      --c-arch:    #8b5cf6;
       --radius:    14px;
     }
 
@@ -38,69 +40,53 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-
     a { color: inherit; text-decoration: none; }
+    .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
-    /* ── Layout ────────────────────────────────────── */
-    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-
-    /* ── Nav ───────────────────────────────────────── */
+    /* ── Nav ── */
     nav {
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 10;
-      background: rgba(9,9,11,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(9,9,11,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
     .nav-inner {
-      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      max-width: 980px; margin: 0 auto; padding: 0 24px;
       height: 56px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 16px; letter-spacing: -0.3px;
     }
     .nav-logo-mark {
       width: 30px; height: 30px; border-radius: 8px;
-      background: var(--hound); display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; color: #fff; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff; letter-spacing: -0.3px;
     }
-    .nav-links { display: flex; align-items: center; gap: 20px; }
-    .nav-links a {
-      font-size: 14px; color: var(--muted2);
-      transition: color 0.15s;
-    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { font-size: 14px; color: var(--muted2); transition: color 0.15s; }
     .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      font-size: 13px; font-weight: 600;
-      background: var(--hound); color: #fff !important;
-      padding: 7px 16px; border-radius: 8px;
-      transition: opacity 0.15s !important;
-    }
-    .nav-cta:hover { opacity: 0.85 !important; }
 
-    /* ── Hero ──────────────────────────────────────── */
-    .hero {
-      padding: 100px 0 80px;
-      text-align: center;
-    }
+    /* ── Hero ── */
+    .hero { padding: 100px 0 80px; text-align: center; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 500; color: var(--hound-lt);
-      background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
-      padding: 5px 12px; border-radius: 999px; margin-bottom: 28px;
-      letter-spacing: 0.5px; text-transform: uppercase;
+      font-size: 11px; font-weight: 600; color: var(--muted3);
+      border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 32px;
+      letter-spacing: 1px; text-transform: uppercase;
     }
-    .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hound); }
     h1 {
-      font-size: clamp(36px, 6vw, 60px);
-      font-weight: 800; letter-spacing: -2px; line-height: 1.05;
-      color: var(--text);
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 800; letter-spacing: -2.5px; line-height: 1.05;
     }
-    h1 em { font-style: normal; color: var(--hound-lt); }
+    h1 em { font-style: normal; color: var(--accent-lt); }
     .hero-sub {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--muted); margin-top: 20px; max-width: 520px;
-      margin-left: auto; margin-right: auto; line-height: 1.55;
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted); margin-top: 22px;
+      max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.6;
     }
     .hero-actions {
       display: flex; gap: 12px; justify-content: center;
@@ -108,9 +94,9 @@
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--hound); color: #fff;
-      font-size: 15px; font-weight: 600;
-      padding: 13px 28px; border-radius: 10px;
+      background: var(--accent); color: #fff;
+      font-size: 14px; font-weight: 600;
+      padding: 12px 26px; border-radius: 10px;
       border: none; cursor: pointer;
       transition: opacity 0.15s, transform 0.1s;
     }
@@ -118,28 +104,35 @@
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--s1); color: var(--muted);
-      font-size: 15px; font-weight: 500;
-      padding: 13px 24px; border-radius: 10px;
+      font-size: 14px; font-weight: 500;
+      padding: 12px 22px; border-radius: 10px;
       border: 1px solid var(--border);
       transition: border-color 0.15s, color 0.15s, transform 0.1s;
     }
     .btn-secondary:hover { border-color: var(--muted3); color: var(--text); transform: translateY(-1px); }
 
-    /* ── Products ─────────────────────────────────── */
-    .products { padding: 60px 0 80px; }
+    /* ── Section header ── */
+    .section-header { margin-bottom: 40px; }
     .section-label {
-      font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
       text-transform: uppercase; color: var(--muted3);
-      margin-bottom: 40px; text-align: center;
     }
+    .section-title {
+      font-size: clamp(22px, 3vw, 28px); font-weight: 700;
+      letter-spacing: -0.5px; margin-top: 8px;
+    }
+    .section-sub { font-size: 15px; color: var(--muted); margin-top: 8px; max-width: 560px; }
+
+    /* ── Products ── */
+    .products { padding: 80px 0; border-top: 1px solid var(--border); }
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 16px;
     }
     .product-card {
       background: var(--s1); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px;
+      border-radius: var(--radius); padding: 26px;
       display: flex; flex-direction: column;
       transition: border-color 0.2s, transform 0.15s;
       position: relative; overflow: hidden;
@@ -147,54 +140,111 @@
     .product-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--card-color, var(--hound));
+      background: var(--card-color, var(--accent));
       opacity: 0; transition: opacity 0.2s;
     }
-    .product-card:hover { transform: translateY(-2px); }
+    .product-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--card-color, var(--accent)) 50%, var(--border)); }
     .product-card:hover::before { opacity: 1; }
-    .product-card:hover { border-color: var(--card-color, var(--hound)); }
 
-    .card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+    .card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
     .card-icon {
       width: 44px; height: 44px; border-radius: 11px;
-      background: var(--card-color, var(--hound));
+      background: color-mix(in srgb, var(--card-color, var(--accent)) 15%, transparent);
+      border: 1px solid color-mix(in srgb, var(--card-color, var(--accent)) 30%, transparent);
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 18px; overflow: hidden;
+      flex-shrink: 0; font-size: 20px; overflow: hidden;
     }
     .card-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-name { font-size: 17px; font-weight: 700; color: var(--text); }
+    .card-name { font-size: 16px; font-weight: 700; }
     .card-tagline { font-size: 12px; color: var(--muted2); margin-top: 2px; }
-    .card-desc { font-size: 14px; color: var(--muted); line-height: 1.55; flex: 1; }
-    .card-footer { margin-top: 20px; display: flex; align-items: center; justify-content: space-between; }
-    .card-status {
-      font-size: 11px; font-weight: 500; letter-spacing: 0.3px;
-      padding: 3px 10px; border-radius: 999px;
+    .card-problem {
+      font-size: 12px; font-weight: 500;
+      color: var(--card-color, var(--accent));
+      background: color-mix(in srgb, var(--card-color, var(--accent)) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--card-color, var(--accent)) 20%, transparent);
+      padding: 4px 10px; border-radius: 6px;
+      margin-bottom: 12px; display: inline-block;
     }
-    .status-live    { background: rgba(16,185,129,0.1); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
-    .status-beta    { background: rgba(99,102,241,0.1); color: var(--hound-lt); border: 1px solid rgba(99,102,241,0.2); }
-    .status-soon    { background: rgba(82,82,91,0.15); color: var(--muted2); border: 1px solid var(--border); }
+    .card-desc { font-size: 14px; color: var(--muted); line-height: 1.6; flex: 1; }
+    .card-footer { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .card-status {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.2px;
+      padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+    }
+    .status-live  { background: rgba(16,185,129,0.1); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+    .status-early { background: rgba(99,102,241,0.1); color: var(--accent-lt); border: 1px solid rgba(99,102,241,0.2); }
+    .status-dev   { background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+    .status-soon  { background: rgba(82,82,91,0.15); color: var(--muted2); border: 1px solid var(--border); }
     .card-link {
       font-size: 13px; font-weight: 500;
-      color: var(--card-color, var(--hound-lt));
-      display: flex; align-items: center; gap-4px;
-      transition: gap 0.15s, opacity 0.15s;
+      color: var(--card-color, var(--accent-lt));
+      transition: opacity 0.15s; white-space: nowrap;
     }
-    .card-link:hover { opacity: 0.8; }
-    .product-card:not([data-live]) .card-link { pointer-events: none; color: var(--muted3); }
+    .card-link:hover { opacity: 0.75; }
+    .card-link-disabled { color: var(--muted3); pointer-events: none; }
 
-    /* ── Why Axiworx ──────────────────────────────── */
-    .why { padding: 60px 0; border-top: 1px solid var(--border); }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-    .why-item h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
-    .why-item p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-    .why-icon { font-size: 24px; margin-bottom: 14px; }
+    /* ── Consulting ── */
+    .consulting {
+      padding: 80px 0; border-top: 1px solid var(--border);
+    }
+    .consulting-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+    }
+    .consulting-left {}
+    .consulting-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--c-arch); margin-bottom: 16px;
+    }
+    .consulting-badge::before {
+      content: ''; display: block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--c-arch);
+    }
+    .consulting-left h2 {
+      font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .consulting-left p {
+      font-size: 15px; color: var(--muted); margin-top: 14px; line-height: 1.65;
+    }
+    .consulting-left .targets {
+      margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .target-chip {
+      font-size: 12px; color: var(--muted2);
+      border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 999px;
+      background: var(--s1);
+    }
+    .consulting-cta { margin-top: 28px; }
+    .consulting-right { display: flex; flex-direction: column; gap: 12px; }
+    .service-item {
+      background: var(--s1); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+      border-left: 3px solid var(--c-arch);
+    }
+    .service-item h3 { font-size: 14px; font-weight: 600; }
+    .service-item p { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+    .service-item .aws-tag {
+      display: inline-block; margin-top: 8px;
+      font-size: 11px; font-weight: 600; color: #f59e0b;
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+      padding: 2px 8px; border-radius: 4px; letter-spacing: 0.3px;
+    }
 
-    /* ── Mailing list ──────────────────────────────── */
+    /* ── Studio ethos ── */
+    .ethos { padding: 80px 0; border-top: 1px solid var(--border); }
+    .ethos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+    .ethos-item h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .ethos-item p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .ethos-icon { font-size: 22px; margin-bottom: 14px; opacity: 0.7; }
+
+    /* ── Mailing list ── */
     .maillist {
       padding: 80px 0; text-align: center;
       border-top: 1px solid var(--border);
     }
-    .maillist h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 700; letter-spacing: -0.5px; }
+    .maillist h2 { font-size: clamp(22px, 4vw, 32px); font-weight: 700; letter-spacing: -0.5px; }
     .maillist p { font-size: 15px; color: var(--muted); margin-top: 12px; }
     .maillist-form {
       display: flex; gap: 8px; max-width: 420px;
@@ -207,10 +257,10 @@
       padding: 12px 16px; border-radius: 10px;
       outline: none; transition: border-color 0.15s;
     }
-    .maillist-form input:focus { border-color: var(--hound); }
+    .maillist-form input:focus { border-color: var(--accent); }
     .maillist-form input::placeholder { color: var(--muted3); }
     .maillist-form button {
-      padding: 12px 22px; background: var(--hound); color: #fff;
+      padding: 12px 22px; background: var(--accent); color: #fff;
       font-size: 14px; font-weight: 600; border-radius: 10px;
       border: none; cursor: pointer; white-space: nowrap;
       transition: opacity 0.15s;
@@ -221,25 +271,23 @@
     .form-msg.ok  { color: #34d399; }
     .form-msg.err { color: #f87171; }
 
-    /* ── Footer ────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 0;
-    }
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; }
     .footer-inner {
-      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      max-width: 980px; margin: 0 auto; padding: 0 24px;
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 16px;
     }
-    .footer-left { font-size: 13px; color: var(--muted3); }
-    .footer-links { display: flex; gap: 20px; }
+    .footer-left { font-size: 13px; color: var(--muted3); line-height: 1.8; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
     .footer-links a { font-size: 13px; color: var(--muted3); transition: color 0.15s; }
     .footer-links a:hover { color: var(--muted); }
 
-    /* ── Responsive ────────────────────────────────── */
-    @media (max-width: 640px) {
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
       .hero { padding: 72px 0 56px; }
-      .why-grid { grid-template-columns: 1fr; gap: 32px; }
+      .consulting-inner { grid-template-columns: 1fr; gap: 40px; }
+      .ethos-grid { grid-template-columns: 1fr; gap: 28px; }
       .nav-links { display: none; }
     }
   </style>
@@ -255,8 +303,9 @@
       </a>
       <div class="nav-links">
         <a href="#products">Products</a>
+        <a href="#consulting">Consulting</a>
+        <a href="#maillist">Early Access</a>
         <a href="mailto:dev@axiworx.com">Contact</a>
-        <a href="https://alphahound.axiworx.com" class="nav-cta">Get AlphaHound ↗</a>
       </div>
     </div>
   </nav>
@@ -264,15 +313,15 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <div class="hero-eyebrow"><span class="dot"></span> Built by one person</div>
-      <h1>Intelligence tools<br>for <em>focused people</em></h1>
+      <div class="hero-eyebrow">Axiworx · Independent Software Studio</div>
+      <h1>Less noise.<br><em>More signal.</em></h1>
       <p class="hero-sub">
-        Axiworx builds focused tools that surface what matters — in markets, in your browser, and in your life.
-        No subscriptions. No bloat. No cloud required.
+        Focused software that removes friction — in markets, in your browser, in your practice, and on the road.
+        Each tool solves one problem. No subscriptions. No cloud lock-in.
       </p>
       <div class="hero-actions">
-        <a href="https://alphahound.axiworx.com" class="btn-primary">⬇ Download AlphaHound</a>
-        <a href="mailto:dev@axiworx.com" class="btn-secondary">Get in touch</a>
+        <a href="#products" class="btn-primary">Explore tools ↓</a>
+        <a href="#consulting" class="btn-secondary">Architecture consulting</a>
       </div>
     </div>
   </section>
@@ -280,11 +329,15 @@
   <!-- Products -->
   <section class="products" id="products">
     <div class="container">
-      <div class="section-label">Products</div>
+      <div class="section-header">
+        <div class="section-label">Products</div>
+        <div class="section-title">Tools built to do one thing well</div>
+        <div class="section-sub">Each product is independent, local-first where possible, and priced honestly — including free.</div>
+      </div>
       <div class="products-grid">
 
         <!-- AlphaHound -->
-        <div class="product-card" style="--card-color: #6366f1" data-live="true">
+        <div class="product-card" style="--card-color: var(--c-hound)" data-live="true">
           <div class="card-header">
             <div class="card-icon"><img src="/alphahound/icon.jpeg" alt="AlphaHound"></div>
             <div>
@@ -292,26 +345,28 @@
               <div class="card-tagline">Institutional Money Intelligence</div>
             </div>
           </div>
+          <div class="card-problem">Markets · Desktop · macOS / Windows / Linux</div>
           <div class="card-desc">
-            Track where hedge funds and insiders are moving money — 13F filings, Form 4 insider trades, FINRA dark pool data. Desktop app, fully local, no cloud.
+            Surfaces institutional money movement signals — SEC 13F filings, Form 4 insider trades, FINRA dark pool volume — without hours of manual research or expensive data subscriptions. Cross-dataset patterns, plain-English signals, fully local. No Bloomberg required.
           </div>
           <div class="card-footer">
-            <span class="card-status status-beta">Early Access</span>
+            <span class="card-status status-early">Early Access</span>
             <a href="https://alphahound.axiworx.com" class="card-link">Download →</a>
           </div>
         </div>
 
         <!-- Guardr -->
-        <div class="product-card" style="--card-color: #10b981" data-live="true">
+        <div class="product-card" style="--card-color: var(--c-guardr)" data-live="true">
           <div class="card-header">
             <div class="card-icon"><img src="/guardr-icon.png" alt="Guardr"></div>
             <div>
               <div class="card-name">Guardr</div>
-              <div class="card-tagline">Browser Protection</div>
+              <div class="card-tagline">Automatic Cookie Consent Rejection</div>
             </div>
           </div>
+          <div class="card-problem">Browser Privacy · Chrome Extension · Free</div>
           <div class="card-desc">
-            Chrome extension that blocks distracting sites, enforces focus sessions, and protects you from your own worst browsing habits.
+            Silently rejects non-essential cookies and "legitimate interests" the moment a consent banner loads — no clicking, no reading, no dark patterns. Handles 20+ CMP platforms including OneTrust, Cookiebot, Didomi, and Quantcast. Event-driven, zero latency.
           </div>
           <div class="card-footer">
             <span class="card-status status-live">Live on Chrome Web Store</span>
@@ -319,39 +374,41 @@
           </div>
         </div>
 
-        <!-- YogaBud -->
-        <div class="product-card" style="--card-color: #f59e0b">
-          <div class="card-header">
-            <div class="card-icon">◎</div>
-            <div>
-              <div class="card-name">YogaBud</div>
-              <div class="card-tagline">Yoga Practice Guide</div>
-            </div>
-          </div>
-          <div class="card-desc">
-            A progressive web app that guides your yoga practice without subscriptions, accounts, or an internet connection. Your practice, your device.
-          </div>
-          <div class="card-footer">
-            <span class="card-status status-soon">Coming Soon</span>
-            <a href="#maillist" class="card-link">Notify me →</a>
-          </div>
-        </div>
-
         <!-- ZoneGuard -->
-        <div class="product-card" style="--card-color: #3b82f6">
+        <div class="product-card" style="--card-color: var(--c-zone)">
           <div class="card-header">
             <div class="card-icon">▦</div>
             <div>
               <div class="card-name">ZoneGuard</div>
-              <div class="card-tagline">Location & Zone Manager</div>
+              <div class="card-tagline">Congestion Charge Zone Alerts</div>
             </div>
           </div>
+          <div class="card-problem">City Mobility · Mobile · London first</div>
           <div class="card-desc">
-            Mobile app for managing location-based rules, geofence alerts, and zone-aware automations. Works offline, respects your privacy.
+            Proactive alerts and reminders for drivers navigating congestion charging zones — ULEZ, LEZ, Clean Air Zones. Starts with London, expanding to other UK and European charging schemes. Know before you enter, not after you're fined.
           </div>
           <div class="card-footer">
-            <span class="card-status status-soon">In Development</span>
-            <a href="#maillist" class="card-link">Notify me →</a>
+            <span class="card-status status-dev">In Development</span>
+            <a href="#maillist" class="card-link">Early access →</a>
+          </div>
+        </div>
+
+        <!-- YogaBud -->
+        <div class="product-card" style="--card-color: var(--c-yoga)">
+          <div class="card-header">
+            <div class="card-icon">◎</div>
+            <div>
+              <div class="card-name">YogaBud</div>
+              <div class="card-tagline">Yoga Corpus & Practice Guide</div>
+            </div>
+          </div>
+          <div class="card-problem">Wellness · PWA · Offline-capable</div>
+          <div class="card-desc">
+            A complete yoga reference and practice guide — postures, sequences, breathing, and progression — available offline without a subscription or an account. Your practice, your device, your pace.
+          </div>
+          <div class="card-footer">
+            <span class="card-status status-soon">Coming Soon</span>
+            <a href="#maillist" class="card-link card-link-disabled">Notify me →</a>
           </div>
         </div>
 
@@ -359,25 +416,83 @@
     </div>
   </section>
 
-  <!-- Why Axiworx -->
-  <section class="why">
+  <!-- Archworx Consulting -->
+  <section class="consulting" id="consulting">
     <div class="container">
-      <div class="section-label">How we build</div>
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-icon">◈</div>
+      <div class="consulting-inner">
+        <div class="consulting-left">
+          <div class="consulting-badge">Archworx Ltd · Architecture &amp; Consulting</div>
+          <h2>AWS architecture for teams that can't afford the wrong decision</h2>
+          <p>
+            The studio behind Axiworx also provides independent cloud architecture services —
+            assessments, design, and advisory work for organisations that need senior technical
+            direction without an enterprise consulting budget.
+          </p>
+          <p style="margin-top: 12px;">
+            Work is practical and outcome-focused: clear architecture documents, honest
+            trade-off analysis, and guidance you can act on immediately.
+          </p>
+          <div class="targets">
+            <span class="target-chip">Sole traders</span>
+            <span class="target-chip">Small limited companies</span>
+            <span class="target-chip">Startups</span>
+            <span class="target-chip">SMEs</span>
+            <span class="target-chip">Founders without a CTO</span>
+          </div>
+          <div class="consulting-cta">
+            <a href="mailto:dev@axiworx.com?subject=Architecture%20Enquiry" class="btn-secondary">
+              Start a conversation →
+            </a>
+          </div>
+        </div>
+        <div class="consulting-right">
+          <div class="service-item">
+            <h3>Architecture Assessment</h3>
+            <p>Review your current AWS posture — cost, security, resilience. Get a prioritised action plan, not a 200-page report.</p>
+            <span class="aws-tag">AWS Well-Architected</span>
+          </div>
+          <div class="service-item">
+            <h3>Infrastructure Design</h3>
+            <p>Greenfield or migration — design patterns that fit a small team's operational capacity, not a Fortune 500's.</p>
+            <span class="aws-tag">AWS</span>
+          </div>
+          <div class="service-item">
+            <h3>Cloud Migration</h3>
+            <p>Moving from on-prem, from another provider, or from a tangled legacy setup. Scoped, sequenced, de-risked.</p>
+            <span class="aws-tag">AWS</span>
+          </div>
+          <div class="service-item">
+            <h3>Fractional Technical Advisory</h3>
+            <p>Ongoing architecture direction for founders and teams making decisions without a full-time senior engineer in the room.</p>
+            <span class="aws-tag">AWS · Strategy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio ethos -->
+  <section class="ethos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">How we build</div>
+        <div class="section-title">Principles that don't shift</div>
+      </div>
+      <div class="ethos-grid">
+        <div class="ethos-item">
+          <div class="ethos-icon">◈</div>
           <h3>Local-first by default</h3>
-          <p>Your data stays on your machine. No accounts required to use core features. No server to go down.</p>
+          <p>Data stays on your machine where it can. No accounts required for core features. No server to go down mid-use.</p>
         </div>
-        <div class="why-item">
-          <div class="why-icon">⊕</div>
-          <h3>Focused, not bloated</h3>
-          <p>Each tool does one thing well. No feature creep, no dashboard-for-the-sake-of-it, no enterprise pricing.</p>
+        <div class="ethos-item">
+          <div class="ethos-icon">⊕</div>
+          <h3>One problem per product</h3>
+          <p>Each tool has a single clear job. No feature accumulation, no dashboard-for-its-own-sake, no enterprise pricing on consumer tools.</p>
         </div>
-        <div class="why-item">
-          <div class="why-icon">◎</div>
-          <h3>Independent forever</h3>
-          <p>Bootstrapped, solo-built. No VC means no pivot pressure. Tools get better, not abandoned.</p>
+        <div class="ethos-item">
+          <div class="ethos-icon">◎</div>
+          <h3>Bootstrapped and independent</h3>
+          <p>No VC, no acquisition pressure. Tools improve on their own schedule, not a growth team's roadmap. If it stops being useful, it gets fixed — not monetised harder.</p>
         </div>
       </div>
     </div>
@@ -387,7 +502,7 @@
   <section class="maillist" id="maillist">
     <div class="container">
       <h2>Stay in the loop</h2>
-      <p>New product launches, early access invites, and the occasional build log. No spam.</p>
+      <p>Early access invites for new products, launch announcements, and the occasional build note. No filler.</p>
       <form class="maillist-form" id="ml-form" onsubmit="handleSubmit(event)">
         <input
           type="email" id="ml-email"
@@ -397,7 +512,7 @@
         >
         <button type="submit" id="ml-btn">Join list</button>
       </form>
-      <div class="maillist-note">No spam. Unsubscribe any time. ~1–2 emails per month.</div>
+      <div class="maillist-note">No spam. Unsubscribe any time. ~1–2 emails per quarter.</div>
       <div class="form-msg" id="form-msg"></div>
     </div>
   </section>
@@ -406,56 +521,48 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-left">
-        © 2024 Archworx Ltd · trading as Axiworx · dev@axiworx.com
+        © 2025 Archworx Ltd · Registered in England &amp; Wales<br>
+        Trading as Axiworx · <a href="mailto:dev@axiworx.com" style="color: inherit;">dev@axiworx.com</a>
       </div>
       <div class="footer-links">
         <a href="https://alphahound.axiworx.com">AlphaHound</a>
-        <a href="https://github.com/krshx" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://chromewebstore.google.com/detail/makedjecdbjlflkkogkglpmdhbomnohm" target="_blank" rel="noopener">Guardr</a>
+        <a href="#consulting">Consulting</a>
         <a href="mailto:dev@axiworx.com">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // ── Mailing list form ─────────────────────────────────────────
-    // Submits to a Cloudflare Worker endpoint (or swap for Resend/ConvertKit webhook)
-    // See: web/README.md for setup instructions
-
-    const MAILLIST_ENDPOINT = '/api/subscribe'; // CF Worker route
+    const MAILLIST_ENDPOINT = '/api/subscribe';
 
     async function handleSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('ml-email').value.trim();
       const btn   = document.getElementById('ml-btn');
       const msg   = document.getElementById('form-msg');
-
       if (!email) return;
-
       btn.textContent = 'Joining…';
       btn.disabled = true;
       msg.textContent = '';
       msg.className = 'form-msg';
-
       try {
         const res = await fetch(MAILLIST_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-
         if (res.ok) {
-          msg.textContent = "You're on the list. We'll be in touch.";
+          msg.textContent = "You're on the list.";
           msg.className = 'form-msg ok';
           document.getElementById('ml-form').reset();
         } else {
           throw new Error('Server error');
         }
       } catch {
-        // Graceful fallback: open mailto with subject pre-filled
         msg.textContent = 'Subscribe via email instead:';
         msg.className = 'form-msg err';
-        const mailto = `mailto:dev@axiworx.com?subject=Subscribe&body=Please add ${encodeURIComponent(email)} to the list.`;
-        window.location.href = mailto;
+        window.location.href = `mailto:dev@axiworx.com?subject=Subscribe&body=Please add ${encodeURIComponent(email)} to the list.`;
       } finally {
         btn.textContent = 'Join list';
         btn.disabled = false;
