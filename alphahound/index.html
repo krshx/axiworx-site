@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlphaHound — Institutional Money Intelligence</title>
-  <meta name="description" content="Track where hedge funds and insiders are moving money. 13F filings, insider trades, FINRA dark pool data. Desktop app, fully local, no cloud.">
-  <meta property="og:title" content="AlphaHound — Institutional Money Intelligence">
-  <meta property="og:description" content="Track where institutional money moves. Free public data, fully local, no cloud.">
+  <title>AlphaHound — Cross-dataset market intelligence</title>
+  <meta name="description" content="A daily briefing for the stocks you watch — built by crossing institutional positions, insider trades, dark pool volume, options flow, congressional disclosures, and macro data. Free. Fully local. No accounts.">
+  <meta property="og:title" content="AlphaHound — Cross-dataset market intelligence">
+  <meta property="og:description" content="Opens every morning to a ranked feed of what changed for your stocks — what happened, what it means, and whether to act.">
   <meta property="og:url" content="https://alphahound.axiworx.com">
   <meta property="og:image" content="https://alphahound.axiworx.com/og-image.jpeg">
   <meta property="og:type" content="website">
@@ -19,6 +19,7 @@
       --bg:       #09090b;
       --s1:       #18181b;
       --s2:       #27272a;
+      --s3:       #1c1c1f;
       --border:   #3f3f46;
       --text:     #f4f4f5;
       --muted:    #a1a1aa;
@@ -27,25 +28,27 @@
       --hound:    #6366f1;
       --hound-lt: #818cf8;
       --r:        12px;
+      --r-sm:     8px;
     }
 
     body {
       background: var(--bg); color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      -webkit-font-smoothing: antialiased; line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
 
-    /* Nav */
+    /* ── Nav ── */
     nav {
       border-bottom: 1px solid var(--border);
       background: rgba(9,9,11,0.9);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       position: sticky; top: 0; z-index: 10;
     }
     .nav-inner {
-      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      max-width: 920px; margin: 0 auto; padding: 0 24px;
       height: 52px; display: flex; align-items: center; gap: 16px;
     }
     .nav-back {
@@ -54,151 +57,358 @@
       transition: color 0.15s;
     }
     .nav-back:hover { color: var(--text); }
-    .nav-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .nav-title { font-size: 14px; font-weight: 600; }
     .nav-spacer { flex: 1; }
-
-    /* Hero */
-    .hero { padding: 80px 0 60px; }
-    .hero-row { display: flex; align-items: flex-start; gap: 40px; }
-    .hero-icon {
-      width: 72px; height: 72px; border-radius: 18px; flex-shrink: 0;
-      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    .nav-download {
+      font-size: 13px; font-weight: 600;
+      background: var(--hound); color: #fff;
+      padding: 7px 16px; border-radius: 8px;
+      transition: opacity 0.15s;
     }
-    .hero-icon img { width: 100%; height: 100%; object-fit: cover; }
-    h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; }
-    .hero-sub { font-size: 17px; color: var(--muted); margin-top: 14px; line-height: 1.6; max-width: 520px; }
-    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .nav-download:hover { opacity: 0.88; }
+
+    /* ── Hero ── */
+    .hero { padding: 72px 0 56px; }
+    .hero-row { display: flex; align-items: flex-start; gap: 32px; }
+    .hero-icon {
+      width: 80px; height: 80px; border-radius: 20px; flex-shrink: 0;
+      overflow: hidden;
+    }
+    .hero-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--hound-lt);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 800; letter-spacing: -1.5px; line-height: 1.05;
+    }
+    .hero-sub {
+      font-size: 17px; color: var(--muted);
+      margin-top: 16px; line-height: 1.65; max-width: 540px;
+    }
+    .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
     .pill {
       font-size: 12px; color: var(--muted2);
       background: var(--s1); border: 1px solid var(--border);
       padding: 4px 12px; border-radius: 999px;
     }
+    .pill-accent {
+      font-size: 12px; color: var(--hound-lt);
+      background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
+      padding: 4px 12px; border-radius: 999px;
+    }
 
-    /* Download box */
-    .download-section { margin-top: 60px; }
+    /* ── Download box ── */
+    .download-section { padding: 0 0 56px; }
     .download-box {
       background: var(--s1); border: 1px solid var(--border);
-      border-radius: 16px; padding: 32px;
+      border-radius: 16px; padding: 28px 32px;
     }
     .os-detected {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 13px; color: var(--muted2);
       background: var(--s2); border: 1px solid var(--border);
-      padding: 5px 12px; border-radius: 8px; margin-bottom: 20px;
+      padding: 5px 12px; border-radius: 8px; margin-bottom: 18px;
     }
     .download-btn {
       display: flex; align-items: center; gap: 14px;
       background: var(--hound); color: #fff;
-      padding: 18px 28px; border-radius: 12px;
-      font-size: 17px; font-weight: 700;
-      border: none; cursor: pointer; width: 100%;
+      padding: 16px 26px; border-radius: 12px;
+      font-size: 16px; font-weight: 700;
+      text-decoration: none; width: 100%;
       transition: opacity 0.15s, transform 0.1s;
     }
     .download-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .download-btn:active { transform: translateY(0); }
-    .download-btn .icon { font-size: 26px; flex-shrink: 0; }
+    .download-btn .btn-icon { font-size: 24px; flex-shrink: 0; }
     .download-btn .btn-text { text-align: left; }
     .download-btn .btn-label { display: block; }
     .download-btn .btn-sub { display: block; font-size: 13px; font-weight: 400; opacity: 0.72; margin-top: 2px; }
-    .download-meta { font-size: 12px; color: var(--muted3); margin-top: 12px; }
+    .download-meta { font-size: 12px; color: var(--muted3); margin-top: 10px; }
 
-    /* Other platforms */
-    .other-platforms { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--s2); }
-    .other-title { font-size: 12px; color: var(--muted3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .other-platforms { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--s2); }
+    .other-title { font-size: 11px; color: var(--muted3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
     .platform-links { display: flex; gap: 8px; flex-wrap: wrap; }
     .platform-link {
       display: flex; align-items: center; gap: 7px;
-      padding: 9px 16px; border-radius: 9px;
+      padding: 8px 14px; border-radius: 9px;
       background: var(--s2); border: 1px solid var(--border);
       font-size: 13px; color: var(--muted);
       transition: border-color 0.15s, color 0.15s;
     }
     .platform-link:hover { border-color: var(--hound); color: var(--text); }
 
-    /* Package managers */
-    .pkg-managers { margin-top: 20px; }
-    .pkg-title { font-size: 12px; color: var(--muted3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+    .pkg-managers { margin-top: 16px; }
+    .pkg-title { font-size: 11px; color: var(--muted3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
     .pkg-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .pkg-cmd {
       display: flex; align-items: center; gap: 8px;
       background: #000; border: 1px solid var(--border);
-      border-radius: 8px; padding: 8px 14px;
+      border-radius: 8px; padding: 7px 12px;
       font-size: 12px; font-family: 'SF Mono', 'Fira Code', monospace;
       color: #a5f3fc; cursor: pointer;
       transition: border-color 0.15s;
     }
     .pkg-cmd:hover { border-color: var(--muted3); }
-    .pkg-cmd .os-tag { color: var(--muted3); font-size: 11px; }
+    .pkg-cmd .os-tag { color: var(--muted3); font-size: 11px; margin-right: 4px; }
 
-    /* What it does */
-    .features { padding: 60px 0; border-top: 1px solid var(--border); }
-    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 32px; }
-    .feature-card {
+    /* ── Section headers ── */
+    .section-wrap { padding: 64px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(20px, 3vw, 28px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
+    .section-sub { font-size: 15px; color: var(--muted); margin-top: 8px; max-width: 560px; }
+
+    /* ── The Briefing preview ── */
+    .briefing-preview {
+      margin-top: 36px;
       background: var(--s1); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 24px;
+      border-radius: 16px; overflow: hidden;
     }
-    .feature-icon { font-size: 22px; margin-bottom: 12px; }
-    .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .preview-titlebar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px; border-bottom: 1px solid var(--border);
+      background: var(--s2);
+    }
+    .preview-titlebar-left { display: flex; align-items: center; gap: 10px; }
+    .preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .preview-title { font-size: 13px; font-weight: 600; color: var(--muted); }
+    .preview-date { font-size: 12px; color: var(--muted3); }
+    .preview-chips {
+      display: flex; gap: 6px; padding: 10px 18px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .preview-chips::-webkit-scrollbar { display: none; }
+    .preview-chip {
+      font-size: 11px; font-weight: 500; white-space: nowrap;
+      padding: 3px 10px; border-radius: 999px; cursor: default;
+    }
+    .chip-active {
+      background: rgba(99,102,241,0.15); color: var(--hound-lt);
+      border: 1px solid rgba(99,102,241,0.3);
+    }
+    .chip-inactive {
+      background: transparent; color: var(--muted3);
+      border: 1px solid var(--border);
+    }
+    .signal-cards { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .signal-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .signal-card:first-child { border-left: 3px solid #ef4444; }
+    .signal-card:nth-child(2) { border-left: 3px solid #f59e0b; }
+    .signal-card:nth-child(3) { border-left: 3px solid #6366f1; }
+    .signal-left { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .sev-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 999px; white-space: nowrap;
+    }
+    .sev-high { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .sev-med  { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+    .sev-info { background: rgba(99,102,241,0.12); color: var(--hound-lt); border: 1px solid rgba(99,102,241,0.2); }
+    .ticker-chip {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+      padding: 2px 8px; border-radius: 6px;
+      background: var(--s2); color: var(--text); border: 1px solid var(--border);
+    }
+    .signal-body { flex: 1; min-width: 0; }
+    .signal-headline { font-size: 13px; font-weight: 600; line-height: 1.4; }
+    .signal-why {
+      font-size: 12px; color: var(--muted); margin-top: 5px; line-height: 1.5;
+    }
+    .signal-why-label { color: var(--muted3); font-style: italic; }
+    .signal-actions { display: flex; gap: 10px; margin-top: 9px; }
+    .sig-btn {
+      font-size: 11px; color: var(--muted3);
+      padding: 3px 9px; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent; cursor: default;
+    }
+    .sig-btn-ai { color: var(--hound-lt); border-color: rgba(99,102,241,0.25); background: rgba(99,102,241,0.06); }
+    .preview-fade {
+      height: 48px;
+      background: linear-gradient(to bottom, transparent, var(--s1));
+      margin-top: -12px; pointer-events: none;
+    }
 
-    /* Data sources */
-    .sources { padding: 60px 0; border-top: 1px solid var(--border); }
-    .sources-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
+    /* ── Views grid ── */
+    .views-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-top: 36px;
+    }
+    .view-card {
+      background: var(--s1); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 0; overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .view-card:hover { border-color: var(--hound); transform: translateY(-2px); }
+    .view-mock {
+      height: 130px; background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .view-info { padding: 14px 16px; }
+    .view-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .view-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* mock internals for each view */
+    .mock-leaderboard { padding: 10px; width: 100%; }
+    .mock-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 4px 6px; border-radius: 6px; margin-bottom: 4px;
+    }
+    .mock-rank { font-size: 10px; color: var(--muted3); width: 14px; text-align: right; flex-shrink: 0; }
+    .mock-name { font-size: 10px; font-weight: 500; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mock-bar-wrap { width: 50px; flex-shrink: 0; }
+    .mock-bar { height: 5px; border-radius: 3px; background: var(--hound); opacity: 0.6; }
+    .mock-pct { font-size: 10px; color: var(--hound-lt); width: 28px; text-align: right; flex-shrink: 0; }
+
+    .mock-sankey { width: 100%; height: 100%; position: relative; overflow: hidden; }
+    .mock-node {
+      position: absolute; border-radius: 4px;
+      background: rgba(99,102,241,0.25); border: 1px solid rgba(99,102,241,0.35);
+      font-size: 9px; font-weight: 600; color: var(--hound-lt);
+      display: flex; align-items: center; justify-content: center;
+      white-space: nowrap;
+    }
+    .mock-flow {
+      position: absolute; border-top: 2px solid rgba(99,102,241,0.2);
+    }
+    .mock-sankey svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    .mock-conviction { padding: 10px 14px; width: 100%; }
+    .mock-score-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0; border-bottom: 1px solid var(--border);
+    }
+    .mock-score-row:last-child { border: none; }
+    .mock-ticker { font-size: 10px; font-weight: 700; width: 34px; flex-shrink: 0; }
+    .mock-gauge-wrap { flex: 1; height: 5px; background: var(--s2); border-radius: 3px; overflow: hidden; }
+    .mock-gauge { height: 100%; border-radius: 3px; }
+    .mock-score-num { font-size: 10px; font-weight: 600; width: 22px; text-align: right; flex-shrink: 0; }
+
+    .mock-heatmap { padding: 8px 10px; width: 100%; }
+    .mock-heat-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; margin-top: 4px; }
+    .mock-cell { aspect-ratio: 1; border-radius: 2px; }
+
+    .mock-chat { padding: 10px 12px; width: 100%; display: flex; flex-direction: column; gap: 6px; }
+    .mock-bubble {
+      padding: 7px 10px; border-radius: 8px; font-size: 10px; line-height: 1.4; max-width: 85%;
+    }
+    .mock-bubble-user { background: var(--hound); color: #fff; align-self: flex-end; border-radius: 8px 8px 2px 8px; }
+    .mock-bubble-ai { background: var(--s2); color: var(--muted); align-self: flex-start; border-radius: 8px 8px 8px 2px; }
+
+    .mock-calendar { padding: 8px 12px; width: 100%; }
+    .mock-cal-row { display: flex; gap: 6px; margin-bottom: 6px; }
+    .mock-cal-chip {
+      font-size: 9px; font-weight: 600; padding: 3px 7px;
+      border-radius: 5px; white-space: nowrap;
+    }
+    .mock-cal-line { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .mock-cal-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .mock-cal-text { font-size: 10px; color: var(--muted); }
+    .mock-cal-date { font-size: 9px; color: var(--muted3); }
+
+    /* ── How it works ── */
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 36px; position: relative;
+    }
+    .steps-row::before {
+      content: '';
+      position: absolute; top: 24px; left: calc(33.3% - 24px); right: calc(33.3% - 24px);
+      height: 1px; background: var(--border); z-index: 0;
+    }
+    .step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--s1); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: var(--hound-lt);
+      margin: 0 auto 14px;
+    }
+    .step h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* ── Intelligence callout ── */
+    .intel-box {
+      background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 14px; padding: 28px 32px; margin-top: 36px;
+    }
+    .intel-box h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 10px; }
+    .intel-box p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .intel-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .intel-chip {
+      font-size: 12px; color: var(--hound-lt);
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
+      padding: 4px 12px; border-radius: 999px;
+    }
+
+    /* ── Data sources ── */
+    .sources-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 28px; }
     .source-row {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: flex-start; gap: 12px;
       padding: 14px 16px; border-radius: var(--r);
       background: var(--s1); border: 1px solid var(--border);
     }
-    .source-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
-    .source-name { font-size: 14px; font-weight: 500; }
-    .source-note { font-size: 12px; color: var(--muted3); margin-top: 1px; }
+    .source-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; margin-top: 4px; }
+    .source-name { font-size: 13px; font-weight: 500; }
+    .source-note { font-size: 12px; color: var(--muted3); margin-top: 2px; }
 
-    /* Specs */
-    .specs { padding: 60px 0; border-top: 1px solid var(--border); }
+    /* ── Specs ── */
     .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
     .spec-card {
       background: var(--s1); border: 1px solid var(--border);
       border-radius: var(--r); padding: 20px; text-align: center;
     }
-    .spec-os { font-size: 24px; margin-bottom: 8px; }
+    .spec-os { font-size: 26px; margin-bottom: 8px; }
     .spec-name { font-size: 14px; font-weight: 600; }
-    .spec-detail { font-size: 12px; color: var(--muted2); margin-top: 4px; line-height: 1.5; }
+    .spec-detail { font-size: 12px; color: var(--muted2); margin-top: 4px; line-height: 1.55; }
+    .req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 
-    /* Section headers */
-    h2 { font-size: clamp(20px, 3vw, 28px); font-weight: 700; letter-spacing: -0.5px; }
-    .section-sub { font-size: 15px; color: var(--muted); margin-top: 8px; }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border); padding: 28px 0;
-      font-size: 13px; color: var(--muted3);
-    }
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--border); padding: 28px 0; }
     .footer-inner {
-      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      max-width: 920px; margin: 0 auto; padding: 0 24px;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
+    .footer-note { font-size: 13px; color: var(--muted3); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--muted3); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--muted); }
 
-    /* Copied toast */
+    /* ── Toast ── */
     .toast {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
       background: var(--s2); border: 1px solid var(--border); color: var(--muted);
       font-size: 13px; padding: 10px 20px; border-radius: 8px;
-      opacity: 0; transition: opacity 0.2s; pointer-events: none;
+      opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 100;
     }
     .toast.show { opacity: 1; }
 
-    @media (max-width: 600px) {
+    /* ── Responsive ── */
+    @media (max-width: 680px) {
       .hero-row { flex-direction: column; gap: 20px; }
-      .features-grid, .sources-grid, .specs-grid { grid-template-columns: 1fr; }
+      .views-grid { grid-template-columns: 1fr; }
+      .steps-row { grid-template-columns: 1fr; gap: 32px; }
+      .steps-row::before { display: none; }
+      .sources-grid, .specs-grid, .req-grid { grid-template-columns: 1fr; }
+      .download-box { padding: 20px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Nav -->
   <nav>
     <div class="nav-inner">
-      <a href="/" class="nav-back">← Axiworx</a>
+      <a href="https://axiworx.com" class="nav-back">← Axiworx</a>
       <span class="nav-title">AlphaHound</span>
+      <div class="nav-spacer"></div>
+      <a href="#download" class="nav-download" id="nav-dl-btn">Download free ↓</a>
     </div>
   </nav>
 
@@ -206,19 +416,21 @@
   <section class="hero">
     <div class="container">
       <div class="hero-row">
-        <div class="hero-icon"><img src="/alphahound/icon.jpeg" alt="AlphaHound"></div>
+        <div class="hero-icon"><img src="/alphahound/icon.jpeg" alt="AlphaHound icon"></div>
         <div>
-          <h1>Institutional Money<br>Intelligence</h1>
+          <div class="hero-eyebrow">AlphaHound · Cross-dataset market intelligence</div>
+          <h1>What changed.<br>What it means.<br>Whether to act.</h1>
           <p class="hero-sub">
-            See where hedge funds, pension funds, and insiders are moving money —
-            before it becomes obvious. Built from free public regulatory filings. Runs entirely on your machine.
+            A daily briefing for the stocks you watch — built by crossing institutional positions,
+            insider trades, dark pool volume, options flow, congressional disclosures, and macro data
+            into signals no single source can give you.
           </p>
           <div class="hero-pills">
-            <span class="pill">◈ 13F Filings</span>
-            <span class="pill">⊕ Insider Trades</span>
-            <span class="pill">◎ Dark Pool</span>
-            <span class="pill">▤ Local AI</span>
-            <span class="pill">✓ No cloud</span>
+            <span class="pill-accent">Free</span>
+            <span class="pill">Fully local</span>
+            <span class="pill">No accounts</span>
+            <span class="pill">No subscription</span>
+            <span class="pill">macOS · Windows · Linux</span>
           </div>
         </div>
       </div>
@@ -226,26 +438,22 @@
   </section>
 
   <!-- Download -->
-  <section class="download-section">
+  <section class="download-section" id="download">
     <div class="container">
       <div class="download-box">
         <div class="os-detected" id="os-badge">🖥 Detecting your platform…</div>
-
         <a id="primary-btn" href="#" class="download-btn">
-          <span class="icon" id="btn-icon">⬇</span>
+          <span class="btn-icon" id="btn-icon">⬇</span>
           <span class="btn-text">
             <span class="btn-label" id="btn-label">Download AlphaHound</span>
             <span class="btn-sub" id="btn-sub">Detecting platform…</span>
           </span>
         </a>
-
-        <div class="download-meta" id="download-meta">~30 MB · data downloads in background after first launch · no account required</div>
-
+        <div class="download-meta" id="download-meta">~30 MB · no account required · data downloads in the background after first launch</div>
         <div class="other-platforms" id="other-platforms" style="display:none">
           <div class="other-title">Other platforms</div>
           <div class="platform-links" id="platform-links"></div>
         </div>
-
         <div class="pkg-managers" id="pkg-managers" style="display:none">
           <div class="pkg-title">Package managers</div>
           <div class="pkg-row" id="pkg-row"></div>
@@ -254,119 +462,396 @@
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features">
+  <!-- The Briefing -->
+  <section class="section-wrap">
     <div class="container">
-      <h2>What AlphaHound shows you</h2>
-      <p class="section-sub">Cross-dataset intelligence — patterns only visible when multiple sources are joined.</p>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">◈</div>
-          <h3>Smart Money Leaderboard</h3>
-          <p>Which hedge funds have the best win rate when they open new positions? Ranked by historical accuracy across all 13F quarters in your database.</p>
+      <h2>Opens every morning to this</h2>
+      <p class="section-sub">
+        The Briefing is a ranked feed of what actually moved the needle for your watchlist — ordered by severity, each card with a plain-English "why it matters" and a one-click path to dig deeper or ask the AI.
+      </p>
+      <div class="briefing-preview">
+        <div class="preview-titlebar">
+          <div class="preview-titlebar-left">
+            <div class="preview-dot" style="background:#ef4444"></div>
+            <div class="preview-dot" style="background:#f59e0b"></div>
+            <div class="preview-dot" style="background:#22c55e"></div>
+            <span class="preview-title" style="margin-left:6px">The Briefing</span>
+          </div>
+          <span class="preview-date">Wednesday 7 May · 7 signals</span>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">⊕</div>
-          <h3>Conviction Divergence</h3>
-          <p>Detects when ≥2 institutions are buying AND ≥2 are selling the same ticker in the same quarter. A stock under institutional debate.</p>
+        <div class="preview-chips">
+          <span class="preview-chip chip-active">All (7)</span>
+          <span class="preview-chip chip-inactive">Your watchlist (4)</span>
+          <span class="preview-chip chip-inactive">High</span>
+          <span class="preview-chip chip-inactive">Medium</span>
+          <span class="preview-chip chip-inactive">Insider</span>
+          <span class="preview-chip chip-inactive">Dark pool</span>
+          <span class="preview-chip chip-inactive">Options</span>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">◎</div>
-          <h3>Dual Conviction</h3>
-          <p>Institutional 13F new position + Form 4 insider purchase on the same ticker. When funds and executives agree, the signal is stronger.</p>
+        <div class="signal-cards">
+
+          <div class="signal-card">
+            <div class="signal-left">
+              <span class="sev-badge sev-high">High</span>
+              <span class="ticker-chip">NVDA</span>
+            </div>
+            <div class="signal-body">
+              <div class="signal-headline">3 new institutional positions opened this quarter while dark pool volume ran 2.4× above the 30-day baseline</div>
+              <div class="signal-why"><span class="signal-why-label">Why it matters · </span>New fund entries alongside unusual off-exchange volume suggests coordinated accumulation ahead of a catalyst. Options chain confirms elevated call activity in the same window.</div>
+              <div class="signal-actions">
+                <span class="sig-btn">Open ticker</span>
+                <span class="sig-btn sig-btn-ai">Ask AI →</span>
+                <span class="sig-btn">Source</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <div class="signal-left">
+              <span class="sev-badge sev-med">Med</span>
+              <span class="ticker-chip">MSFT</span>
+            </div>
+            <div class="signal-body">
+              <div class="signal-headline">CFO made a $4.2M open-market purchase — first insider buy in 18 months</div>
+              <div class="signal-why"><span class="signal-why-label">Why it matters · </span>Executives rarely buy at market unless they believe the stock is undervalued relative to near-term expectations. Cross-checks with a net increase in institutional positions this quarter.</div>
+              <div class="signal-actions">
+                <span class="sig-btn">Open ticker</span>
+                <span class="sig-btn sig-btn-ai">Ask AI →</span>
+                <span class="sig-btn">Source</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="signal-card">
+            <div class="signal-left">
+              <span class="sev-badge sev-info">Info</span>
+              <span class="ticker-chip">AAPL</span>
+            </div>
+            <div class="signal-body">
+              <div class="signal-headline">2 congressional disclosures filed this week — purchases totalling $15K–$50K reported</div>
+              <div class="signal-why"><span class="signal-why-label">Why it matters · </span>Weaker signal in isolation, but congress trades have historically preceded sector-level moves. No corroborating institutional change this quarter.</div>
+              <div class="signal-actions">
+                <span class="sig-btn">Open ticker</span>
+                <span class="sig-btn sig-btn-ai">Ask AI →</span>
+                <span class="sig-btn">Source</span>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">▦</div>
-          <h3>Filing Calendar</h3>
-          <p>Never miss a 13F filing window again. Upcoming deadlines per watchlist ticker, plus Form 4 insider purchase clusters from the last 90 days.</p>
+        <div class="preview-fade"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Views preview -->
+  <section class="section-wrap">
+    <div class="container">
+      <h2>One level deeper, one click away</h2>
+      <p class="section-sub">Every Briefing card links to a full view. Here's what's waiting.</p>
+      <div class="views-grid">
+
+        <!-- Smart Money Leaderboard -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-leaderboard">
+              <div style="font-size:9px;color:var(--muted3);padding:0 6px 6px;text-transform:uppercase;letter-spacing:1px">Smart Money · Win Rate ▾</div>
+              <div class="mock-row"><span class="mock-rank">1</span><span class="mock-name">Citadel Advisors</span><div class="mock-bar-wrap"><div class="mock-bar" style="width:90%"></div></div><span class="mock-pct">91%</span></div>
+              <div class="mock-row"><span class="mock-rank">2</span><span class="mock-name">Millennium Mgmt</span><div class="mock-bar-wrap"><div class="mock-bar" style="width:78%"></div></div><span class="mock-pct">79%</span></div>
+              <div class="mock-row"><span class="mock-rank">3</span><span class="mock-name">Two Sigma</span><div class="mock-bar-wrap"><div class="mock-bar" style="width:72%"></div></div><span class="mock-pct">73%</span></div>
+              <div class="mock-row"><span class="mock-rank">4</span><span class="mock-name">Renaissance Tech</span><div class="mock-bar-wrap"><div class="mock-bar" style="width:68%"></div></div><span class="mock-pct">69%</span></div>
+              <div class="mock-row"><span class="mock-rank">5</span><span class="mock-name">Bridgewater</span><div class="mock-bar-wrap"><div class="mock-bar" style="width:61%"></div></div><span class="mock-pct">62%</span></div>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">Smart Money Leaderboard</div>
+            <div class="view-desc">Which funds have the best win rate when they open new positions? Ranked by historical accuracy across every 13F quarter in your database.</div>
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">▤</div>
-          <h3>Institutional Pressure Score</h3>
-          <p>0–100 composite score from 5 independent data sources: 13F flows, dark pool spikes, insider buys, exits, and price momentum.</p>
+
+        <!-- Conviction Score -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-conviction">
+              <div style="font-size:9px;color:var(--muted3);padding:0 0 8px;text-transform:uppercase;letter-spacing:1px">Conviction Scores · Watchlist</div>
+              <div class="mock-score-row"><span class="mock-ticker">NVDA</span><div class="mock-gauge-wrap"><div class="mock-gauge" style="width:88%;background:linear-gradient(90deg,#6366f1,#818cf8)"></div></div><span class="mock-score-num" style="color:#818cf8">88</span></div>
+              <div class="mock-score-row"><span class="mock-ticker">MSFT</span><div class="mock-gauge-wrap"><div class="mock-gauge" style="width:74%;background:linear-gradient(90deg,#6366f1,#818cf8)"></div></div><span class="mock-score-num" style="color:#818cf8">74</span></div>
+              <div class="mock-score-row"><span class="mock-ticker">META</span><div class="mock-gauge-wrap"><div class="mock-gauge" style="width:67%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><span class="mock-score-num" style="color:#fbbf24">67</span></div>
+              <div class="mock-score-row"><span class="mock-ticker">AAPL</span><div class="mock-gauge-wrap"><div class="mock-gauge" style="width:41%;background:linear-gradient(90deg,#52525b,#71717a)"></div></div><span class="mock-score-num" style="color:var(--muted2)">41</span></div>
+              <div class="mock-score-row"><span class="mock-ticker">TSLA</span><div class="mock-gauge-wrap"><div class="mock-gauge" style="width:22%;background:linear-gradient(90deg,#52525b,#71717a)"></div></div><span class="mock-score-num" style="color:var(--muted3)">22</span></div>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">Conviction Scores</div>
+            <div class="view-desc">A 0–100 composite from 5 independent data sources per ticker: institutional flows, dark pool spikes, insider activity, momentum, and accumulation persistence.</div>
+          </div>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">◆</div>
-          <h3>Weekly AI Digest</h3>
-          <p>Ollama summarises your portfolio of signals each week. Plain-English writeup of what moved, who moved it, and what it might mean.</p>
+
+        <!-- Money Flow Sankey -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-sankey">
+              <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+                <!-- Out nodes -->
+                <rect x="8" y="14" width="52" height="18" rx="3" fill="rgba(99,102,241,0.18)" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
+                <text x="34" y="26" text-anchor="middle" font-size="7" fill="#818cf8">Financials</text>
+                <rect x="8" y="40" width="52" height="18" rx="3" fill="rgba(99,102,241,0.18)" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
+                <text x="34" y="52" text-anchor="middle" font-size="7" fill="#818cf8">Healthcare</text>
+                <rect x="8" y="66" width="52" height="18" rx="3" fill="rgba(99,102,241,0.18)" stroke="rgba(99,102,241,0.3)" stroke-width="0.5"/>
+                <text x="34" y="78" text-anchor="middle" font-size="7" fill="#818cf8">Energy</text>
+                <rect x="8" y="92" width="52" height="14" rx="3" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.2)" stroke-width="0.5"/>
+                <text x="34" y="102" text-anchor="middle" font-size="7" fill="#6366f1">Consumer</text>
+                <!-- In nodes -->
+                <rect x="160" y="10" width="52" height="22" rx="3" fill="rgba(34,197,94,0.15)" stroke="rgba(34,197,94,0.3)" stroke-width="0.5"/>
+                <text x="186" y="24" text-anchor="middle" font-size="7" fill="#4ade80">Technology</text>
+                <rect x="160" y="42" width="52" height="18" rx="3" fill="rgba(34,197,94,0.15)" stroke="rgba(34,197,94,0.3)" stroke-width="0.5"/>
+                <text x="186" y="54" text-anchor="middle" font-size="7" fill="#4ade80">Industrials</text>
+                <rect x="160" y="70" width="52" height="16" rx="3" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.2)" stroke-width="0.5"/>
+                <text x="186" y="81" text-anchor="middle" font-size="7" fill="#4ade80">Utilities</text>
+                <!-- Flows -->
+                <path d="M60 23 C110 23 110 21 160 21" stroke="rgba(99,102,241,0.35)" stroke-width="4" fill="none"/>
+                <path d="M60 49 C110 49 110 21 160 21" stroke="rgba(99,102,241,0.25)" stroke-width="3" fill="none"/>
+                <path d="M60 75 C110 75 110 51 160 51" stroke="rgba(99,102,241,0.2)" stroke-width="2" fill="none"/>
+                <path d="M60 23 C110 23 110 51 160 51" stroke="rgba(99,102,241,0.15)" stroke-width="2" fill="none"/>
+                <path d="M60 99 C110 99 110 78 160 78" stroke="rgba(99,102,241,0.15)" stroke-width="2" fill="none"/>
+                <text x="110" y="118" text-anchor="middle" font-size="7" fill="#52525b">Q4 → Q1 sector rotation</text>
+              </svg>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">Money Flow · Sankey</div>
+            <div class="view-desc">Visualises institutional capital rotation between sectors across quarters. Band thickness = confidence. Scrub history to watch money move over time.</div>
+          </div>
+        </div>
+
+        <!-- Dark Pool Calendar -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-heatmap">
+              <div style="font-size:9px;color:var(--muted3);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px">Dark Pool Volume · 52 weeks · NVDA</div>
+              <div class="mock-heat-grid" id="mock-heat"></div>
+              <div style="display:flex;gap:4px;margin-top:5px;align-items:center">
+                <div style="width:8px;height:8px;border-radius:2px;background:var(--s2)"></div>
+                <div style="width:8px;height:8px;border-radius:2px;background:rgba(99,102,241,0.3)"></div>
+                <div style="width:8px;height:8px;border-radius:2px;background:rgba(99,102,241,0.6)"></div>
+                <div style="width:8px;height:8px;border-radius:2px;background:#6366f1"></div>
+                <span style="font-size:9px;color:var(--muted3);margin-left:2px">Low → Spike</span>
+              </div>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">Dark Pool · Spike Calendar</div>
+            <div class="view-desc">52-week heatmap of off-exchange volume z-scores per ticker. Spot the weeks where dark pool activity ran unusually hot — often weeks before price moves.</div>
+          </div>
+        </div>
+
+        <!-- Filing Calendar -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-calendar">
+              <div style="font-size:9px;color:var(--muted3);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Upcoming · Your watchlist</div>
+              <div class="mock-cal-line">
+                <div class="mock-cal-dot" style="background:#6366f1"></div>
+                <span class="mock-cal-text">13F filing deadline — Q1 2026</span>
+                <span class="mock-cal-date" style="margin-left:auto">May 15</span>
+              </div>
+              <div class="mock-cal-line">
+                <div class="mock-cal-dot" style="background:#f59e0b"></div>
+                <span class="mock-cal-text">NVDA insider cluster · 6 purchases</span>
+                <span class="mock-cal-date" style="margin-left:auto">Apr 28</span>
+              </div>
+              <div class="mock-cal-line">
+                <div class="mock-cal-dot" style="background:#22c55e"></div>
+                <span class="mock-cal-text">MSFT earnings disclosure window</span>
+                <span class="mock-cal-date" style="margin-left:auto">Apr 30</span>
+              </div>
+              <div class="mock-cal-line">
+                <div class="mock-cal-dot" style="background:#ef4444"></div>
+                <span class="mock-cal-text">META material event · 8-K filed</span>
+                <span class="mock-cal-date" style="margin-left:auto">May 2</span>
+              </div>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">Filing Calendar</div>
+            <div class="view-desc">Upcoming 13F windows, insider purchase clusters, earnings dates, and material events — all scoped to your watchlist tickers.</div>
+          </div>
+        </div>
+
+        <!-- AI Chat -->
+        <div class="view-card">
+          <div class="view-mock">
+            <div class="mock-chat">
+              <div class="mock-bubble mock-bubble-user">Why is dark pool activity in NVDA elevated this week?</div>
+              <div class="mock-bubble mock-bubble-ai">Based on your local data: 3 new institutional positions opened in Q1 alongside a 2.4× dark pool spike. This pattern — new 13F entries concurrent with elevated ATS volume — historically precedes a price move in 68% of cases in your database…</div>
+            </div>
+          </div>
+          <div class="view-info">
+            <div class="view-name">AI Chat · Local LLM</div>
+            <div class="view-desc">Ask questions about your signals in plain English. The AI has full context — your watchlist, the filings, the dark pool data. Runs on your machine via Ollama. Nothing leaves.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section-wrap">
+    <div class="container">
+      <h2>From install to first briefing in under 5 minutes</h2>
+      <p class="section-sub">No account creation. No API keys for the free path. No configuration required to get started.</p>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Download &amp; install</h3>
+          <p>Native app for your OS. Double-click, drag to Applications (macOS) or run the installer. No dependencies.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Pick your watchlist</h3>
+          <p>Search for tickers. AlphaHound backfills the last two years of filings and data for each one in the background.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Open The Briefing</h3>
+          <p>Every morning, a ranked feed tells you what changed overnight — what it means, and whether to act. That's the whole loop.</p>
+        </div>
+      </div>
+      <div class="intel-box">
+        <h3>What makes a signal here different from Yahoo Finance</h3>
+        <p>
+          Every card in The Briefing joins at least two independent datasets. An insider purchase on its own is noise — but an insider purchase that coincides with new institutional positions and elevated dark pool volume is a pattern. That cross-dataset join is what AlphaHound does. No signal surfaces from a single source.
+        </p>
+        <div class="intel-chips">
+          <span class="intel-chip">Institutional positions × insider trades</span>
+          <span class="intel-chip">Dark pool spikes × 13F entries</span>
+          <span class="intel-chip">Options flow × congressional disclosures</span>
+          <span class="intel-chip">Macro shifts × institutional exits</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Data sources -->
-  <section class="sources">
+  <section class="section-wrap">
     <div class="container">
-      <h2>All free public data</h2>
-      <p class="section-sub">No subscriptions, no data vendor fees. Everything AlphaHound uses is legally available to anyone.</p>
+      <h2>All publicly available. All free.</h2>
+      <p class="section-sub">No subscriptions, no data vendor fees. Everything AlphaHound uses is legally available to anyone — it just takes a machine to join it all together.</p>
       <div class="sources-grid">
-        {[
-          ['SEC EDGAR — 13F Filings', 'Quarterly institutional holdings · all funds ≥ $100M AUM'],
-          ['SEC EDGAR — Form 4', 'Insider buy/sell filings · within 2 days of transaction'],
-          ['SEC EDGAR — 8-K', 'Material events · leadership changes, investigations, M&A'],
-          ['FINRA ATS Data', 'Weekly dark pool / off-exchange volume by venue'],
-          ['Yahoo Finance', 'Daily price history for watchlist tickers · OHLCV'],
-          ['FRED (St. Louis Fed)', 'Macro series: rates, yield curve, M2, inflation'],
-        ].map(([name, desc]) => `
-          <div class="source-row">
-            <div class="source-dot"></div>
-            <div>
-              <div class="source-name">${name}</div>
-              <div class="source-note">${desc}</div>
-            </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Institutional holdings</div>
+            <div class="source-note">Quarterly filings from all funds managing ≥$100M — who holds what, how much changed</div>
           </div>
-        `).join('')}
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Insider trades</div>
+            <div class="source-note">Regulatory disclosures filed within 2 days of every executive buy or sell</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Dark pool volume</div>
+            <div class="source-note">Weekly off-exchange trading volume per venue — the part of the market not visible on public order books</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Options flow</div>
+            <div class="source-note">Front-month call/put ratios versus 30-day baseline — unusual positioning ahead of moves</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Congressional disclosures</div>
+            <div class="source-note">Mandatory trade filings by US representatives and senators — historically well-timed</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Material events</div>
+            <div class="source-note">Regulatory filings for leadership changes, investigations, M&amp;A, and other market-moving events</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">Macro data</div>
+            <div class="source-note">Interest rates, yield curve, inflation, M2 — used to contextualise institutional positioning changes</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <div class="source-dot"></div>
+          <div>
+            <div class="source-name">ETF holdings</div>
+            <div class="source-note">ARK, iShares, Vanguard snapshot positions — cross-referenced with institutional 13F entries</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- System requirements -->
-  <section class="specs">
+  <section class="section-wrap">
     <div class="container">
       <h2>System requirements</h2>
-      <p class="section-sub">Native desktop app — no browser, no Electron, no cloud dependency.</p>
+      <p class="section-sub">Native desktop app built with Rust and WebKit — not Electron. Starts fast, stays fast.</p>
       <div class="specs-grid">
         <div class="spec-card">
           <div class="spec-os">🍎</div>
           <div class="spec-name">macOS</div>
-          <div class="spec-detail">10.15 Catalina+<br>Intel · Apple Silicon<br>Universal binary available</div>
+          <div class="spec-detail">10.15 Catalina or later<br>Intel · Apple Silicon<br>Universal binary</div>
         </div>
         <div class="spec-card">
           <div class="spec-os">🪟</div>
           <div class="spec-name">Windows</div>
-          <div class="spec-detail">Windows 10 / 11<br>64-bit only<br>.msi installer</div>
+          <div class="spec-detail">Windows 10 or 11<br>64-bit only<br>.msi installer</div>
         </div>
         <div class="spec-card">
           <div class="spec-os">🐧</div>
           <div class="spec-name">Linux</div>
-          <div class="spec-detail">Ubuntu 20.04+<br>Debian 11+<br>.AppImage · .deb</div>
+          <div class="spec-detail">Ubuntu 20.04+ · Debian 11+<br>.AppImage · .deb<br>x86_64</div>
         </div>
       </div>
-      <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="req-grid" style="margin-top:12px">
         <div class="source-row">
-          <div class="source-dot" style="background: var(--hound)"></div>
+          <div class="source-dot" style="background:var(--hound)"></div>
           <div>
             <div class="source-name">4 GB RAM minimum</div>
-            <div class="source-note">8 GB recommended · 16 GB for larger AI models</div>
+            <div class="source-note">8 GB recommended · 16 GB if running larger local AI models</div>
           </div>
         </div>
         <div class="source-row">
-          <div class="source-dot" style="background: var(--hound)"></div>
+          <div class="source-dot" style="background:var(--hound)"></div>
           <div>
             <div class="source-name">~2 GB disk (initial sync)</div>
-            <div class="source-note">Grows with history depth · AI model: 2–10 GB extra</div>
+            <div class="source-note">Grows with history depth · local AI model adds 2–10 GB (optional)</div>
           </div>
         </div>
       </div>
+      <p style="font-size:13px;color:var(--muted3);margin-top:20px">
+        Local AI via <a href="https://ollama.com" target="_blank" rel="noopener" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px">Ollama</a> is optional — the Briefing and all signals work without it. AI adds the conversational "ask why" layer on top.
+      </p>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-inner">
-      <div>AlphaHound by <a href="/" style="color: var(--muted2); text-decoration: underline; text-underline-offset: 3px;">Axiworx</a> · Not investment advice</div>
-      <div style="display: flex; gap: 20px;">
-        <a href="/" style="color: var(--muted3); transition: color 0.15s;" onmouseover="this.style.color='#a1a1aa'" onmouseout="this.style.color='#52525b'">← All products</a>
-        <a href="mailto:dev@axiworx.com" style="color: var(--muted3); transition: color 0.15s;" onmouseover="this.style.color='#a1a1aa'" onmouseout="this.style.color='#52525b'">Contact</a>
+      <div class="footer-note">
+        AlphaHound by <a href="https://axiworx.com" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px">Axiworx</a> · Not investment advice · Early access
+      </div>
+      <div class="footer-links">
+        <a href="https://axiworx.com">← All products</a>
+        <a href="mailto:dev@axiworx.com">Contact</a>
       </div>
     </div>
   </footer>
@@ -374,26 +859,23 @@
   <div class="toast" id="toast">Copied to clipboard</div>
 
   <script>
-    // ── GitHub Releases base URL ──────────────────────────────────────────────
-    // Update REPO to your actual GitHub org/repo before going live.
-    const REPO    = 'krshx/alphahound';
-    const BASE    = `https://github.com/${REPO}/releases/latest/download`;
+    // ── GitHub Releases ───────────────────────────────────────────────────────
+    const REPO = 'axiworx/alphahound-releases';
+    const BASE = `https://github.com/${REPO}/releases/latest/download`;
 
     const PLATFORMS = {
-      'mac-arm':   { label: 'macOS (Apple Silicon)', sub: 'M1/M2/M3/M4 · .dmg',        icon: '🍎', url: `${BASE}/AlphaHound_aarch64.dmg`,    size: '~28 MB', brew: null },
-      'mac-intel': { label: 'macOS (Intel)',          sub: 'x86_64 · .dmg',              icon: '🍎', url: `${BASE}/AlphaHound_x86_64.dmg`,      size: '~32 MB', brew: null },
-      'mac-uni':   { label: 'macOS (Universal)',      sub: 'Intel + Apple Silicon · .dmg', icon: '🍎', url: `${BASE}/AlphaHound_universal.dmg`,  size: '~58 MB', brew: 'brew install --cask alphahound' },
-      'win':       { label: 'Windows',                sub: 'x64 · .msi installer',       icon: '🪟', url: `${BASE}/AlphaHound_x64.msi`,         size: '~35 MB', winget: 'winget install Axiworx.AlphaHound' },
-      'linux':     { label: 'Linux',                  sub: 'x86_64 · AppImage',          icon: '🐧', url: `${BASE}/AlphaHound_x86_64.AppImage`, size: '~30 MB', brew: null },
+      'mac-arm':   { label: 'macOS (Apple Silicon)', sub: 'M1 / M2 / M3 / M4 · .dmg',        icon: '🍎', url: `${BASE}/AlphaHound_aarch64.dmg`,    size: '~28 MB' },
+      'mac-intel': { label: 'macOS (Intel)',          sub: 'x86_64 · .dmg',                   icon: '🍎', url: `${BASE}/AlphaHound_x86_64.dmg`,      size: '~32 MB' },
+      'mac-uni':   { label: 'macOS (Universal)',      sub: 'Intel + Apple Silicon · .dmg',     icon: '🍎', url: `${BASE}/AlphaHound_universal.dmg`,   size: '~58 MB' },
+      'win':       { label: 'Windows',                sub: 'x64 · .msi installer',             icon: '🪟', url: `${BASE}/AlphaHound_x64.msi`,         size: '~35 MB', winget: 'winget install Axiworx.AlphaHound' },
+      'linux':     { label: 'Linux',                  sub: 'x86_64 · AppImage',                icon: '🐧', url: `${BASE}/AlphaHound_x86_64.AppImage`, size: '~30 MB' },
     };
 
     function detectPlatform() {
-      const ua   = navigator.userAgent;
-      const plat = navigator.platform || '';
+      const ua = navigator.userAgent;
       if (/Win/i.test(ua)) return 'win';
       if (/Linux/i.test(ua) && !/Android/i.test(ua)) return 'linux';
       if (/Mac/i.test(ua)) {
-        // WebGL renderer check for Apple Silicon
         try {
           const c = document.createElement('canvas');
           const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
@@ -405,7 +887,6 @@
             }
           }
         } catch (_) {}
-        // userAgentData async check
         if (navigator.userAgentData?.getHighEntropyValues) {
           navigator.userAgentData.getHighEntropyValues(['architecture'])
             .then(d => { if (d.architecture === 'arm') renderPrimary('mac-arm'); })
@@ -427,31 +908,29 @@
     function renderPrimary(key) {
       const p = PLATFORMS[key];
       if (!p) { renderUnknown(); return; }
-
       document.getElementById('os-badge').textContent = `${p.icon} ${p.label} detected`;
       const btn = document.getElementById('primary-btn');
       btn.href = p.url;
       document.getElementById('btn-icon').textContent = p.icon;
       document.getElementById('btn-label').textContent = `Download for ${p.label}`;
       document.getElementById('btn-sub').textContent   = p.sub;
-      document.getElementById('download-meta').textContent = `${p.size} · no account required · data downloads in the background after first launch`;
+      document.getElementById('download-meta').textContent = `${p.size} · no account required · data backfills automatically after first launch`;
+
+      // Nav button update
+      const navBtn = document.getElementById('nav-dl-btn');
+      navBtn.textContent = `Download ${p.icon}`;
 
       // Other platforms
       const others = Object.entries(PLATFORMS).filter(([k]) => k !== key);
       document.getElementById('platform-links').innerHTML = others
-        .map(([k, info]) => `<a href="${info.url}" class="platform-link">${info.icon} ${info.label}</a>`)
+        .map(([, info]) => `<a href="${info.url}" class="platform-link">${info.icon} ${info.label}</a>`)
         .join('');
       document.getElementById('other-platforms').style.display = '';
 
       // Package managers
       const pkgCmds = [];
-      if (p.brew)   pkgCmds.push({ os: 'macOS',   cmd: p.brew });
       if (p.winget) pkgCmds.push({ os: 'Windows', cmd: p.winget });
-      // Always show both options
-      if (key !== 'win')  pkgCmds.push({ os: 'macOS',   cmd: 'brew install --cask alphahound' });
-      if (key !== 'linux' && key !== 'mac-arm' && key !== 'mac-intel' && key !== 'mac-uni') {
-        pkgCmds.push({ os: 'Windows', cmd: 'winget install Axiworx.AlphaHound' });
-      }
+      if (key !== 'win') pkgCmds.push({ os: 'macOS', cmd: 'brew install --cask alphahound' });
       if (pkgCmds.length) {
         document.getElementById('pkg-row').innerHTML = pkgCmds
           .map(c => `<div class="pkg-cmd" onclick="copyCmd('${c.cmd}')"><span class="os-tag">${c.os}</span>${c.cmd}</div>`)
@@ -464,13 +943,31 @@
       document.getElementById('os-badge').textContent = '🖥 Choose your platform';
       document.getElementById('primary-btn').style.display = 'none';
       document.getElementById('platform-links').innerHTML = Object.entries(PLATFORMS)
-        .map(([k, info]) => `<a href="${info.url}" class="platform-link">${info.icon} ${info.label}</a>`)
+        .map(([, info]) => `<a href="${info.url}" class="platform-link">${info.icon} ${info.label}</a>`)
         .join('');
       document.getElementById('other-platforms').style.display = '';
     }
 
     const detected = detectPlatform();
     if (detected) renderPrimary(detected); else renderUnknown();
+
+    // ── Dark pool heatmap mock ────────────────────────────────────────────────
+    const grid = document.getElementById('mock-heat');
+    if (grid) {
+      const intensities = [
+        0,0,1,0,0,1,2,0,0,1,0,0,1,
+        0,1,0,0,2,1,0,0,1,3,0,1,0,
+        1,0,0,1,0,0,1,2,0,0,1,0,0,
+        0,0,1,3,0,1,0,0,2,1,0,0,1,
+      ];
+      const colours = ['var(--s2)', 'rgba(99,102,241,0.25)', 'rgba(99,102,241,0.55)', '#6366f1'];
+      intensities.forEach(v => {
+        const cell = document.createElement('div');
+        cell.className = 'mock-cell';
+        cell.style.background = colours[v];
+        grid.appendChild(cell);
+      });
+    }
   </script>
 </body>
 </html>
